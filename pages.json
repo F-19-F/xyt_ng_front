@@ -1,0 +1,74 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/course/course",
+			"style": {
+				"navigationBarTitleText": "课表"
+			}
+		}, {
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "发现",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/me/me",
+			"style": {
+				"navigationBarTitleText": "关于",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/index/grade/grade",
+			"style": {
+				"navigationBarTitleText": "成绩查询",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/index/exam/exam",
+			"style": {
+				"navigationBarTitleText": "考试查询",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/index/classroom/classroom",
+			"style": {
+				"navigationBarTitleText": "空教室查询",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#7A7E83",
+		"list": [{
+				"pagePath": "pages/course/course",
+				"iconPath": "/static/tabbar/course.png",
+				"selectedIconPath": "/static/tabbar/course_cur.png",
+				"text": "课表"
+			},
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabbar/home.png",
+				"selectedIconPath": "static/tabbar/home_cur.png",
+				"text": "发现"
+			},
+			{
+				"pagePath": "pages/me/me",
+				"iconPath": "static/tabbar/mine.png",
+				"selectedIconPath": "static/tabbar/mine_cur.png",
+				"text": "我"
+			}
+		]
+	}
+}

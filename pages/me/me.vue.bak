@@ -1,0 +1,68 @@
+<template>
+	<view>
+		<view>
+			<image src="@/static/bg_img/bg.png" mode="scaleToFill" class="top-bg"></image>
+			<!-- <image class="infoavatar" :src="src"></image> -->
+		</view>
+		<view class="textinfo">
+			<u-cell-group>
+				<u-cell icon="account-fill" title="姓名" :value="userInfo.name"></u-cell>
+				<u-cell icon="bookmark-fill" title="班级" :value="userInfo.cls"></u-cell>
+				<u-cell icon="file-text-fill" title="专业" :value="userInfo.pfs"></u-cell>
+			</u-cell-group>
+			<u-cell-group>
+				<u-cell icon="edit-pen-fill" title="修改个人信息" :isLink="true"></u-cell>
+			</u-cell-group>
+		</view>
+	</view>
+</template>
+
+<script>
+	import {
+		mapState,
+		mapActions
+	} from 'vuex'
+	export default {
+		name: "mine",
+		data() {
+			return {
+				src: "/static/icon/center-a.png"
+			}
+		},
+		computed: {
+			...mapState(['loginState', 'userInfo'])
+		},
+		created() {
+			// this.init()
+		},
+		methods: {}
+	}
+</script>
+
+<style scoped>
+	.textinfo {
+		padding-left: 10rpx;
+		padding-right: 10rpx;
+		padding-bottom: 20rpx;
+	}
+
+	.infoavatar {
+		/* position: absolute; */
+		/* position: fixed; */
+		float: inherit;
+		width: 150rpx;
+		height: 150rpx;
+		/* margin-left: 100rpx; */
+		z-index: 1;
+	}
+
+	.top-bg {
+		/* position: absolute; */
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		// mix-blend-mode: screen;
+		height: 350rpx;
+	}
+</style>
