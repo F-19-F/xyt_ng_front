@@ -21,13 +21,23 @@
 					</view>
 				</view>
 				<view class="flex-sub margin-xs">
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-					style="height:80rpx;">
-					<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>作业
+					<button v-if="!isTeacher"
+						class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
+						style="height:80rpx;">
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>作业
 					</button>
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-					style="height:80rpx;">
-					<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课
+					<button v-else
+						class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
+						style="height:80rpx;">
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>发布作业
+					</button>
+					<button v-if="!isTeacher" class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
+						style="height:80rpx;">
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课
+					</button>
+					<button v-else class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
+						style="height:80rpx;">
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>管理选课
 					</button>
 				</view>
 				<view class="flex-sub margin-xs">
@@ -41,7 +51,7 @@
 					</button>
 				</view>
 			</view>
-			<!-- 宿舍电量、校园贴士、校车、校历 -->
+			<!-- 公有功能 -->
 			<view class="flex animation-slide-right margin-top-xl">
 				<view class="flex-sub margin-xs">
 					<!-- xs -> sm -> ' ' -> lg -> xl -->
@@ -74,7 +84,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex animation-slide-right margin-top-xl">
+			<!-- 学生相关 -->
+			<view v-if="!isTeacher" class="flex animation-slide-right margin-top-xl">
 				<view class="flex-sub margin-xs">
 					<view class='padding-sm bg-blue-1 nav-li shadow' style='height:100%;'>
 						<view class="nav-title">查询</view>
@@ -94,70 +105,47 @@
 				</view>
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-					style="height:80rpx;">
-					<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课信息
+						style="height:80rpx;">
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课信息
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-					style="height:80rpx;">
-					<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>个人信息
+						style="height:80rpx;">
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>个人信息
 					</button>
 				</view>
 			</view>
-			<!-- 失物招领、校园地图、故障报修 -->
-			<!-- <view class="flex animation-slide-right">
+			<!-- 教师相关 -->
+			<view v-if="isTeacher" class="flex animation-slide-right margin-top-xl">
 				<view class="flex-sub margin-xs">
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow" @click="xyxs"
-						style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/found.png'></image>洗浴充值
-					</button>
-				</view>
-				<view class="flex-sub margin-xs">
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						@click="navigate('map')" style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/map.png'></image>校园地图
-					</button>
-				</view>
-				<view class="flex-sub margin-xs">
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						@click="tips('tips')" style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/fix.png'></image>校园贴士
-					</button>
-				</view>
-			</view> -->
-			<!-- 青创、兼职、部门报名 -->
-			<!-- <view class="flex animation-slide-left margin-top-xs"> -->
-				<!-- 扩展功能块 -->
-				<!-- <view class="flex-sub margin-xs">
 					<view class='padding-sm bg-blue-1 nav-li shadow' style='height:100%;'>
-						<view class="nav-title">拓展</view>
-						<view class="nav-name">more</view>
+						<view class="nav-title">教学</view>
+						<view class="nav-name">query</view>
 						<image class="nav-bg" src="@/static/bg_img/class_more.png"></image>
 					</view>
 				</view>
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						@click="classMap" style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/qc.png'></image>公教地图
+						@click="navigate('exam',false)" style="height:80rpx;">
+						<image class='round fun-icon' src='@/static/fun_ico/exam.png'></image>发布课程
 					</button>
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow" @click="wait"
-						style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/apply.png'></image>课程汇总
+					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
+						@click="navigate('grade',false)" style="height:80rpx;">
+						<image class='round fun-icon' src='@/static/fun_ico/grade.png'></image>教学班
 					</button>
-
-				</view> -->
-				<!-- <view class="flex-sub margin-xs">
+				</view>
+				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						@click="navigate('dry',true)" style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/found.png'></image>衣物清洁
-					</button>
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12  shadow" @click="more"
 						style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/more.png'></image>持续更新
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>教学班
 					</button>
-				</view> -->
-			<!-- </view> -->
-			<!-- <view class="cu-tabbar-height"></view> -->
+					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
+						style="height:80rpx;">
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>个人信息
+					</button>
+				</view>
+			</view>
 		</view>
+	</view>
 	</view>
 </template>
 
@@ -167,7 +155,7 @@
 		name: "home",
 		data() {
 			return {
-				url: "https://dry-api.zyuanlee.cn/api/",
+				// url: "https://dry-api.zyuanlee.cn/api/",
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
 				swiperList: [],
@@ -190,14 +178,7 @@
 
 			// },
 			// 点击轮播图图片
-			// selectedBanner(item, index) {
-			// 	console.log(item, index)
-			// 	// #ifdef MP-WEIXIN
-			// 	wx.navigateTo({
-			// 		url: "/pages/home/web/web?url=" + item.web
-			// 	})
-			// 	// #endif
-			// },
+			selectedBanner(item, index) {},
 			navigate(nav, required = false) {
 				// required为true表明需要登录
 				if (required) {
@@ -289,6 +270,9 @@
 				let CustomBar = this.CustomBar;
 				let style = `padding-top:${CustomBar}px;`;
 				return style
+			},
+			isTeacher() {
+				return this.$store.state.isTeacher;
 			}
 		},
 	}

@@ -91,31 +91,17 @@
 					}
 				})
 			},
-			update() {
-				uni.navigateTo({
-					url: "../mine/update/update",
-					fail: res => {
-						console.log(res)
-					}
-				})
-			},
 			question: function() {
 
-			},
-			// 赞赏
-			support() {
-				uni.previewImage({
-					urls: ["https://gitee.com/pandalzy/cloud_img/raw/master/imgs/support.jpg"]
-				})
 			},
 			logout() {
 				uni.showModal({
 					content: "是否切换账号？(此操作会清空信息缓存)",
 					success: res => {
 						if (res.confirm) {
-							uni.clearStorageSync()
+							// uni.clearStorageSync()
 							uni.navigateTo({
-								url: "../login/login"
+								url: "/pages/login/login"
 							})
 						}
 					}

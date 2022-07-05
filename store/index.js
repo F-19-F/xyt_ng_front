@@ -9,7 +9,8 @@ const store = new Vuex.Store({
 			pfs: '信息管理与信息系统',
 			cls: '19信管1班',
 			num: '222019603193110'
-		}
+		},
+		isTeacher: true
 	},
 	mutations: {
 		userLogin(state, userInfo) {
