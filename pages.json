@@ -37,6 +37,13 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/index/map/map",
+			"style": {
+				"navigationBarTitleText": "校园地图",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"easycom": {

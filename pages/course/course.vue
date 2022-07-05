@@ -138,7 +138,7 @@
 					<view class="action text-green" @click="modalName = null">确定</view>
 				</view>
 				<view class="grid col-4 padding-sm bg-gray">
-					<view v-for="(item, index) in 20" :key="index" class="padding-xs" wx:key="week">
+					<view v-for="(item, index) in 20" :key="index" class="padding-xs">
 						<button class="cu-btn blue block" :class="weekIndex==index?'bg-blue':'line-blue'"
 							@click="weekChange(index)">
 							第{{index+1}}周

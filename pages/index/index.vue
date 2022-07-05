@@ -8,8 +8,11 @@
 		<!-- 功能列表 -->
 		<view class="padding-left-sm padding-right-sm padding-bottom-sm text-df">
 			<!-- 成绩、考试、空教室、通讯电话   每一个flex为一行功能 -->
+			<!-- animation 指定动画 -->
+			<!-- flex声明一个容器 -->
 			<view class="flex animation-slide-left">
 				<!-- 学习分类 -->
+				<!-- flex-stub声明上层flex布局的子组件 -->
 				<view class="flex-sub margin-xs">
 					<view class='padding-sm bg-blue-1 nav-li shadow' style='height:100%;'>
 						<view class="nav-title">学习</view>
@@ -19,12 +22,12 @@
 				</view>
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						@click="navigate('grade',false)" style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/grade.png'></image>成绩绩点
+					style="height:80rpx;">
+					<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>作业
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						@click="navigate('exam',false)" style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/exam.png'></image>考试查询
+					style="height:80rpx;">
+					<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课
 					</button>
 				</view>
 				<view class="flex-sub margin-xs">
@@ -39,11 +42,12 @@
 				</view>
 			</view>
 			<!-- 宿舍电量、校园贴士、校车、校历 -->
-			<view class="flex animation-slide-right margin-top-xs">
+			<view class="flex animation-slide-right margin-top-xl">
 				<view class="flex-sub margin-xs">
+					<!-- xs -> sm -> ' ' -> lg -> xl -->
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						@click="navigate('electric')" style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/electric.png'></image>宿舍电量
+						@click="navigate('map')" style="height:80rpx;">
+						<image class='round fun-icon' src='@/static/fun_ico/map.png'></image>校园地图
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
 						@click="navigate('phone')" style="height:80rpx;">
@@ -55,6 +59,7 @@
 						@click="tips('bus')" style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/bus.png'></image>校车时刻
 					</button>
+					<!-- cu-btn 将<button>里的图片以及文字合并成一个按钮 -->
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
 						@click="tips('calendar')" style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/calendar.png'></image>校历时间
@@ -63,14 +68,43 @@
 				<!-- 生活功能块 -->
 				<view class="flex-sub margin-xs">
 					<view class='padding-sm bg-blue-1 nav-li shadow' style='height:100%;'>
-						<view class="nav-title">生活</view>
+						<view class="nav-title">学校</view>
 						<view class="nav-name">life</view>
 						<image class="nav-bg" src="@/static/bg_img/class_live.png"></image>
 					</view>
 				</view>
 			</view>
+			<view class="flex animation-slide-right margin-top-xl">
+				<view class="flex-sub margin-xs">
+					<view class='padding-sm bg-blue-1 nav-li shadow' style='height:100%;'>
+						<view class="nav-title">查询</view>
+						<view class="nav-name">query</view>
+						<image class="nav-bg" src="@/static/bg_img/class_more.png"></image>
+					</view>
+				</view>
+				<view class="flex-sub margin-xs">
+					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
+						@click="navigate('exam',false)" style="height:80rpx;">
+						<image class='round fun-icon' src='@/static/fun_ico/exam.png'></image>考试考场
+					</button>
+					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
+						@click="navigate('grade',false)" style="height:80rpx;">
+						<image class='round fun-icon' src='@/static/fun_ico/grade.png'></image>考试成绩
+					</button>
+				</view>
+				<view class="flex-sub margin-xs">
+					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
+					style="height:80rpx;">
+					<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课信息
+					</button>
+					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
+					style="height:80rpx;">
+					<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>个人信息
+					</button>
+				</view>
+			</view>
 			<!-- 失物招领、校园地图、故障报修 -->
-			<view class="flex animation-slide-right">
+			<!-- <view class="flex animation-slide-right">
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow" @click="xyxs"
 						style="height:80rpx;">
@@ -89,11 +123,11 @@
 						<image class='round fun-icon' src='@/static/fun_ico/fix.png'></image>校园贴士
 					</button>
 				</view>
-			</view>
+			</view> -->
 			<!-- 青创、兼职、部门报名 -->
-			<view class="flex animation-slide-left margin-top-xs">
+			<!-- <view class="flex animation-slide-left margin-top-xs"> -->
 				<!-- 扩展功能块 -->
-				<view class="flex-sub margin-xs">
+				<!-- <view class="flex-sub margin-xs">
 					<view class='padding-sm bg-blue-1 nav-li shadow' style='height:100%;'>
 						<view class="nav-title">拓展</view>
 						<view class="nav-name">more</view>
@@ -110,8 +144,8 @@
 						<image class='round fun-icon' src='@/static/fun_ico/apply.png'></image>课程汇总
 					</button>
 
-				</view>
-				<view class="flex-sub margin-xs">
+				</view> -->
+				<!-- <view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
 						@click="navigate('dry',true)" style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/found.png'></image>衣物清洁
@@ -120,9 +154,9 @@
 						style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/more.png'></image>持续更新
 					</button>
-				</view>
-			</view>
-			<view class="cu-tabbar-height"></view>
+				</view> -->
+			<!-- </view> -->
+			<!-- <view class="cu-tabbar-height"></view> -->
 		</view>
 	</view>
 </template>
@@ -147,23 +181,23 @@
 		created() {},
 		methods: {
 			// 获取轮播图信息
-			init: function() {
-				if (!this.swiperList.length) {
-					this.$req('api/config/carousel/', "get", {}, res => {
-						this.swiperList = res.data.results
-					})
-				}
+			// init: function() {
+			// 	if (!this.swiperList.length) {
+			// 		this.$req('api/config/carousel/', "get", {}, res => {
+			// 			this.swiperList = res.data.results
+			// 		})
+			// 	}
 
-			},
+			// },
 			// 点击轮播图图片
-			selectedBanner(item, index) {
-				console.log(item, index)
-				// #ifdef MP-WEIXIN
-				wx.navigateTo({
-					url: "/pages/home/web/web?url=" + item.web
-				})
-				// #endif
-			},
+			// selectedBanner(item, index) {
+			// 	console.log(item, index)
+			// 	// #ifdef MP-WEIXIN
+			// 	wx.navigateTo({
+			// 		url: "/pages/home/web/web?url=" + item.web
+			// 	})
+			// 	// #endif
+			// },
 			navigate(nav, required = false) {
 				// required为true表明需要登录
 				if (required) {
@@ -233,52 +267,21 @@
 					}
 				})
 			},
-			more: function() {
-				wx.showModal({
-					title: '提示',
-					content: '期待下次更新~~',
-					showCancel: false,
-				})
-			},
-			xyxs: function() {
-				// #ifdef MP-WEIXIN
-				uni.navigateToMiniProgram({
-					appId: 'wx1434468956702089'
-				})
-				// #endif
-
-				// #ifdef MP-QQ
-				wx.showModal({
-					title: '提示',
-					content: '请前往微信端使用~~',
-					showCancel: false,
-				})
-				// #endif
-
-			},
-			wait: function() {
-				wx.showModal({
-					title: '提示',
-					content: '敬请期待~~',
-					showCancel: false,
-				})
-			},
+			// more: function() {
+			// 	wx.showModal({
+			// 		title: '提示',
+			// 		content: '期待下次更新~~',
+			// 		showCancel: false,
+			// 	})
+			// },
+			// wait: function() {
+			// 	wx.showModal({
+			// 		title: '提示',
+			// 		content: '敬请期待~~',
+			// 		showCancel: false,
+			// 	})
+			// },
 			// 公教地图
-			classMap: function() {
-				// #ifdef MP-WEIXIN
-				uni.navigateToMiniProgram({
-					appId: 'wxa398c31add6d3fc9'
-				})
-				// #endif
-
-				// #ifdef MP-QQ
-				wx.showModal({
-					title: '提示',
-					content: '请前往微信端使用~~',
-					showCancel: false,
-				})
-				// #endif
-			},
 		},
 		computed: {
 			style() {
