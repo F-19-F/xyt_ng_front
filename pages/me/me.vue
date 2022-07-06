@@ -3,14 +3,14 @@
 		<view class="top-container">
 			<image src="@/static/bg_img/bg.png" mode="scaleToFill" class="top-bg"></image>
 			<view class="info-container animation-slide-left" :style="style">
-				<image :src="loginState?'/static/logo.jpg':'/static/logo.png'" class="wxavatar round solids"
+				<image :src="loginState?'/static/logo.jpg':'/static/logo.jpg'" class="wxavatar round solids"
 					mode="scaleToFill"></image>
 				<view class="info">
 					<view>
 						<text class="text-lg">{{ userInfo.name }}</text>
 					</view>
 					<view class="margin-top-xs">
-						{{ loginState?userInfo.num:'pocket-cumt' }}
+						{{ loginState?userInfo.num:'未登录' }}
 					</view>
 				</view>
 			</view>
@@ -83,6 +83,7 @@
 			...mapState(['loginState', 'userInfo'])
 		},
 		methods: {
+			...mapActions(['userLogoutAction']),
 			about() {
 				uni.navigateTo({
 					url: "../mine/about/about",
@@ -99,7 +100,7 @@
 					content: "是否切换账号？(此操作会清空信息缓存)",
 					success: res => {
 						if (res.confirm) {
-							// uni.clearStorageSync()
+							this.userLogoutAction()
 							uni.navigateTo({
 								url: "/pages/login/login"
 							})

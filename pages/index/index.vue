@@ -272,7 +272,7 @@
 				return style
 			},
 			isTeacher() {
-				return this.$store.state.isTeacher;
+				return this.$store.state.userInfo.isTeacher;
 			}
 		},
 	}

@@ -70,55 +70,13 @@
 					})
 
 				} else {
-					// 查看是否授权
-					uni.getSetting({
-						success: res => {
-							console.log(res)
-							if (res.authSetting['scope.userInfo']) {
-								// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-								uni.getUserInfo({
-									success: res => {
-										console.log(res.userInfo)
-										//性别 0：未知、1：男、2：女
-										uni.setStorageSync('wx_info', res.userInfo)
-									}
-								})
-								let postData = this.form
-								if (this.cookies) {
-									postData['cookies'] = this.cookies
-									postData['captcha'] = this.captcha
-								}
-								this.$req("api/study/login/", "post", postData, res => {
-									if (res.code !== 10000) {
-										if (res.data['cookie']) {
-											let img_path = rootUrl + 'media/captcha/' + this.form
-												.username +
-												'.png?v=' + new Date().getTime()
-											this.captcha_path = img_path
-											this.cookies = res.data['cookie']
-										}
-										uni.showModal({
-											content: res.msg,
-											showCancel: false
-										})
-									} else {
-										let user_info = res.data
-										user_info['password'] = this.form.password
-										uni.setStorageSync('user_info', user_info)
-										uni.navigateBack(-1)
-									}
-								})
-							} else {
-								uni.showModal({
-									content: "请允许获得您的公开信息",
-									showCancel: false
-								})
+					uni.$u.api.login(this.form.username, this.form.password).then(res => {
+						uni.navigateBack({
+							success: (res) => {
+								console.log(res)
 							}
-						},
-						fail: err => {
-							console.log(err)
-						}
-					})
+						})
+					});
 				}
 			}
 		}

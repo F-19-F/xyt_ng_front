@@ -1,40 +1,15 @@
 <template>
 	<view>
-		<!-- 自定义顶部 -->
-		<!-- <view class="cu-custom bg-blue-1" :style="style" style="position: absolute;top: 0;z-index: 999;">
-			
-			<view class="cu-left" @click="back">
-				<view class="left-text">
-					<text class="cuIcon-back"></text>更多
-				</view>
-			</view>
-			
-			<view class="cu-center">
-				<text class="center-text">
-					校园地图
-				</text>
-			</view>
-			<view class="cu-right">
-			</view>
-		</view> -->
-		<!--        <cu-custom bgColor="bg-blue-11">
-            <view slot="backText" @click="back">
-                更多
-            </view>
-            <view slot="content">
-                校园地图
-            </view>
-        </cu-custom> -->
-		<scroll-view scroll-x class="bg-white nav fixed" :style="'width:100%;top:'+CustomBar+'px;'"
-			scroll-with-animation :scroll-left="scrollLeft">
+		<map id="myMap" style="width: 100%;height:93vh;" :latitude="latitude" :longitude="longitude" :markers="markers"
+			:include-points="markers" show-location='true' scale='18' bindmarkertap='getInfo' show-compass='true'>
+		</map>
+		<scroll-view scroll-x class="bg-white nav" :style="'width:100%;'" scroll-with-animation
+			:scroll-left="scrollLeft">
 			<view class="cu-item" :class="index==TabCur?'text-green cur':''" v-for="(item, index) in tabList"
 				:key='index' @click="tabSelect(index)">
 				{{item}}
 			</view>
 		</scroll-view>
-		<map id="myMap" style="width: 100%;height:100vh;" :latitude="latitude" :longitude="longitude" :markers="markers"
-			:include-points="markers" show-location='true' scale='15' bindmarkertap='getInfo' show-compass='true'>
-		</map>
 	</view>
 </template>
 
@@ -45,21 +20,21 @@
 			return {
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
-				latitude: 34.214073,
-				longitude: 117.145586,
+				latitude: 29.395969, //105.578956,29.395969
+				longitude: 105.578956,
 				markers: [],
 				includepoints: [],
 
 				TabCur: 0,
 
 				scrollLeft: 0,
-				tabList: ['学院楼', '宿舍/食堂', '教学楼/体育场', 'ATM/快递', '校车站点'],
-				tabName: ['xyl', 'ssst', 'jxltyc', 'atmkd', 'xczd'],
+				tabList: ['宿舍楼', '食堂', '教学楼', 'ATM/快递', '校车站点'],
+				tabName: ['ssl', 'st', 'jxl', 'atmkd', 'xczd'],
 			};
 		},
 		created() {
 			this.mapCtx = uni.createMapContext('myMap')
-			this.markers = locList.xyl
+			this.markers = locList.ssl
 		},
 		methods: {
 			tabSelect(index) {

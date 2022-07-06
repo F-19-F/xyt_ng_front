@@ -43,7 +43,7 @@
 			</view>
 		</view>
 		<!-- 占位 -->
-		<view :style="'height:calc('+ CustomBar+'px + 70rpx);'"></view>
+		<!-- <view :style="'height:calc('+ CustomBar+'px + 70rpx);'"></view> -->
 		<!-- 课程区域 -->
 		<scroll-view scroll-y="true" :style="marginHeight" style="width: 100vw;">
 			<view :style="'background-image: url('+bacimg+');width: 100vw;'"
@@ -487,6 +487,13 @@
 			},
 			// 显示课程点击详情
 			showDetail: function(index) {
+				uni.$u.api.getAllCourse().then((res) => {
+					console.log(res)
+					uni.showModal({
+						title: "后端数据",
+						content: JSON.stringify(res.results)
+					})
+				})
 				console.log(index)
 				const str = '地点：' + this.courseList[index].cdmc + '\n' +
 					'教师：' + this.courseList[index].xm + '\n' +
