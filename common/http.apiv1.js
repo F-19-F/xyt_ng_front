@@ -3,47 +3,45 @@ module.exports = (vm) => {
 	// 初始化请求配置
 	const http = uni.$u.http
 	let api = {}
+	api.getCsrfToken = () => http.get("getCsrftoken/")
 	api.login = (username, password) => {
-		return http.post('auth/login/', {
-			username,
-			password
-		}).then(res => {
-			// 更新token
-			let token = res.key;
-			vm.$store.commit('updateToken', res.key);
-			// 获取用户信息
-			http.get('auth/user/').then(res => {
-				http.get('user/' + res.pk + '/').then(res => {
-					// console.log(res)
-					let isteacher = false;
-					if (res.identity == 1) {
-						isteacher = true;
+		// 插入csrftoken -> 发送登录post -> 获取token->请求用户信息
+		return api.getCsrfToken().then(res => {
+				let csrf_token = res.csrftoken;
+				return http.post('auth/login/', {
+					username,
+					password
+				}, {
+					header: {
+						'X-CSRFToken': csrf_token
 					}
-					userInfo = {
-						name: res.name,
-						pfs: res.pls,
-						cls: res.cls,
-						num: res.username,
-						token: token,
-						isTeacher: isteacher
-					}
-					vm.$store.commit('userLogin', userInfo);
-					uni.showToast({
-						title: "登录成功!"
-					})
 				})
 			})
-			// http.get('user/').then(res => {
-			// 	console.log(res);
-			// })
-
-
-		})
+			.then(res => {
+				// 更新全局token
+				vm.$store.commit('updateToken', res.key);
+				return http.get('auth/user/')
+				// 通过token拿到用户id，再请求restful的后端接口,存储为userInfo
+			}).then(res => http.get(`user/${res.pk}/`))
+			.then(res => {
+				let isteacher = false;
+				if (res.identity == 1) {
+					isteacher = true;
+				}
+				userInfo = {
+					name: res.name,
+					pfs: res.pls,
+					cls: res.cls,
+					num: res.username,
+					isTeacher: isteacher
+				}
+				vm.$store.commit('userLogin', userInfo);
+			});
 	}
-	api.getCsrfToken = () => http.get("getCsrftoken/")
-	api.getAllCourse = () => http.get("course/")
-	api.getAllScore = () => http.get("score/")
-	api.getAllWork = () => http.get("work")
+	api.getAllCourse = () => http.get("course/mycourse/")
+	api.getAllScore = () => http.get("score/myscore/")
+	api.getAllExam = () => http.get("exam/myexam/")
+	api.getAllWork = () => http.get("work/")
 	api.getAllAnswer = () => http.get("answer/")
 	api.getAllPeopleClass = () => http.get("peopleclass/")
 	uni.$u.api = api;

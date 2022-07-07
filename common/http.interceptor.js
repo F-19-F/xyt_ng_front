@@ -14,8 +14,8 @@ module.exports = (vm) => {
 		// // 根据custom参数中配置的是否需要token，添加对应的请求头
 		// 	// 可以在此通过vm引用vuex中的变量，具体值在vm.$store.state中
 		// 添加token
-		if (vm.$store.state.userInfo.token) {
-			config.header.Authorization = " Token " + vm.$store.state.userInfo.token
+		if (vm.$store.state.loginToken) {
+			config.header.Authorization = " Token " + vm.$store.state.loginToken
 		}
 		// console.log(config)
 		return config
@@ -48,6 +48,6 @@ module.exports = (vm) => {
 		return response.data;
 	}, (response) => {
 		// 对响应错误做点什么 （statusCode !== 200）
-		return Promise.reject(response)
+		return Promise.reject(response.data)
 	})
 }
