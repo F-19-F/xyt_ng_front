@@ -7,12 +7,14 @@
 				<!-- 顶部左侧打开抽屉 -->
 				<view class="cu-left">
 					<view class="bg-orange-1 left-rectangle"></view>
+					<!-- 粉色周数按钮 -->
 					<button class="cu-btn cuIcon bg-orange-2 shadow left-round" @click="modalName = 'DrawerModal'">
 						{{tureWeek}}
 					</button>
 				</view>
 				<!-- 顶部切换周数 -->
 				<view class="cu-center">
+					<!-- 绿色周数切换按钮 -->
 					<button class="cu-btn round bg-green shadow week-btn" @click="modalName = 'ZcModal'">
 						第{{weekIndex+1}}周-周{{title[thisDay-1]}}
 					</button>
@@ -24,7 +26,8 @@
 			<view class="flex text-xs blue-1">
 				<view style='width:10.4vw;' class="flex justify-center align-center">{{month}}</view>
 				<view style='width:89.6vw;height:35rpx;' class="flex">
-					<view v-for="(item, index) in title" :key='index' class="flex justify-center align-center flex-sub"
+					<view v-for="(item, index) in title" :key="index+'week'"
+						class="flex justify-center align-center flex-sub"
 						:class="index==thisDay-1?'bg-gray orange-1':''">
 						周{{item}}
 					</view>
@@ -34,7 +37,7 @@
 			<view class="flex text-xs blue-1">
 				<view style='width:10.4vw;' class="flex justify-center align-center">月</view>
 				<view style='width:89.6vw;height:35rpx' class="flex">
-					<view v-for="(item, index) in dayArray" :key='index'
+					<view v-for="(item, index) in dayArray" :key="index+'day'"
 						class="flex justify-center align-center flex-sub"
 						:class="index==thisDay-1?'bg-gray orange-1':''">
 						{{item}}日
@@ -50,7 +53,7 @@
 				class="padding-top-xs padding-bottom-sm flex course-bg" :class="bacimg?'':'bg-white'">
 				<!-- 课程左侧时间 -->
 				<view class='text-xs blue-1'>
-					<view v-for="(item, index) in sksj" :key='index' class='flex justify-center align-center'
+					<view v-for="(item, index) in sksj" :key="index+'left'" class='flex justify-center align-center'
 						style='height:120rpx;flex-direction:column;width:10.4vw;'>
 						<view>{{index+1}}</view>
 						<view class="text-grey">{{item.s}}</view>
@@ -58,13 +61,13 @@
 					</view>
 				</view>
 				<!-- 课程水平分割线 -->
-				<view v-for="(item, index) in sksj.length" :key='index'>
+				<view v-for="(item, index) in sksj.length" :key="index+'hor'">
 					<view style="width:89.6vw;position:absolute;border-bottom:1rpx solid lightgray;z-index: 0;"
 						:style="'margin-top:'+(index+1)*120+'rpx;'">
 					</view>
 				</view>
 				<!-- 课程主体区域 -->
-				<view v-for="(item, index) in courseList" :key='index'>
+				<view v-for="(item, index) in courseList" :key="index+'item'">
 					<view v-for="(subitem, subindex) in item.zcd" :key="subindex">
 						<!-- 周数 -->
 						<view v-if='subitem===weekIndex+1'>
@@ -138,7 +141,7 @@
 					<view class="action text-green" @click="modalName = null">确定</view>
 				</view>
 				<view class="grid col-4 padding-sm bg-gray">
-					<view v-for="(item, index) in 20" :key="index" class="padding-xs">
+					<view v-for="(item, index) in 20" :key="index+'weeks'" class="padding-xs">
 						<button class="cu-btn blue block" :class="weekIndex==index?'bg-blue':'line-blue'"
 							@click="weekChange(index)">
 							第{{index+1}}周
@@ -156,7 +159,7 @@
 						学年选择
 					</view>
 					<view class="grid col-3 bg-white">
-						<view v-for="(item, index) in yearArray" :key="index" class="padding-xs">
+						<view v-for="(item, index) in yearArray" :key="index+'xn'" class="padding-xs">
 							<button class="cu-btn blue block" :class="item.value==xnm?'bg-blue':'line-blue'"
 								@click="xnm = item.value">
 								{{item.title}}
@@ -167,7 +170,7 @@
 						学期选择
 					</view>
 					<view class="grid col-3 bg-white">
-						<view class="padding-xs" v-for="(item, index) in termArray" :key="index">
+						<view class="padding-xs" v-for="(item, index) in termArray" :key="index+'xq'">
 							<button class="cu-btn blue block" :class="item.value==xqm?'bg-blue':'line-blue'"
 								@click="xqm = item.value">
 								{{item.title}}
@@ -187,6 +190,10 @@
 <script>
 	import addTips from "@/components/add-tips/add-tips"
 	import termPicker from '@/components/term-picker/term-picker'
+	import {
+		mapState,
+		mapActions
+	} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -249,11 +256,22 @@
 					's': '21:10',
 					'e': '21:55'
 				}],
-				courseList: [],
+				// courseList: [],
 				// 存放开学日期
 				startDayList: ['2022-03-07', '2022-09-01', '2023-03-07'],
 
 			};
+		},
+		onPullDownRefresh() {
+			uni.$u.api.getAllCourse().then(res => {
+				// console.log(res)
+				// this.courseList = res
+				this.updateCourseAction(res)
+				uni.stopPullDownRefresh()
+			}).catch(() => {
+				uni.stopPullDownRefresh()
+			})
+
 		},
 		components: {
 			addTips,
@@ -261,73 +279,22 @@
 		},
 		created() {
 			this.init()
+			console.log(this.CustomBar)
+			console.log(this.StatusBar)
 		},
 		methods: {
+			...mapActions(['updateCourseAction']),
 			init: function() {
 				this.bacimg = wx.getStorageSync('bacimg') ? wx.getStorageSync('bacimg') : this.baseImg
-
 				// const courseList = uni.getStorageSync('course_list')
 				// const customCourse = uni.getStorageSync('CUSTOM-COURSE')
-				this.courseList = [{
-						// 课程名称
-						kcmc: '信息系统',
-						// 上课地点
-						cdmc: '7A201',
-						// 教师
-						xm: '教师',
-						// 多少周
-						zcdd: 1,
-						// 学分
-						xf: '学分',
-						// 上课的在哪几周
-						zcd: [
-							1, 2, 18
-						],
-						// 星期一
-						xqj: 1,
-						// 一天的开始时间
-						jcs: 2,
-						// 连续几节课
-						cxjs: 1,
-						// 背景颜色
-						bg: 'blue'
-					},
-					{
-						// 课程名称
-						kcmc: '刘灿老师',
-						// 上课地点
-						cdmc: '7A201',
-						// 教师
-						xm: '教师',
-						// 多少周
-						zcdd: 1,
-						// 学分
-						xf: '学分',
-						// 上课的在哪几周
-						zcd: [
-							1, 2, 18
-						],
-						// 星期一
-						xqj: 2,
-						// 一天的开始时间
-						jcs: 11,
-						// 连续几节课
-						cxjs: 2,
-						// 背景颜色
-						bg: 'red'
-					}
-				]
-				// a
-				// if (courseList) {
-				// 	this.courseList = courseList
-
+				this.getCourse()
 				// 	if (!courseList[0]['bg']) {
 				// 		wx.showModal({
 				// 			content: "为适配自定义课程背景，请重新导入课程",
 				// 			showCancel: false,
 				// 		})
 				// 	}
-				// }
 
 				// 设置开学时间
 				let value = wx.getStorageSync('start_day')
@@ -404,28 +371,10 @@
 			// 获取课表   tag:todo
 			getCourse: function() {
 				this.modalName = null
-				const value = uni.getStorageSync('user_info')
-				if (value) {
-					let postData = {
-						username: value.username,
-						password: value.password,
-						xnm: this.xnm,
-						xqm: this.xqm,
-					}
-					this.$req("api/study/course/", "post", postData, res => {
-						uni.setStorageSync('course_list', res.data.course_list)
-						// const customCourse = uni.getStorageSync('CUSTOM-COURSE')
-						// if (customCourse) {
-						//     res.data.course_list.push(...customCourse)
-						// }
-						this.courseList = res.data.course_list
-					})
-				} else {
-					uni.showModal({
-						content: "请先登录账号",
-						showCancel: false,
-					})
-				}
+				uni.$u.api.getAllCourse().then(res => {
+					// console.log(res)
+					this.updateCourseAction(res)
+				})
 
 			},
 			// 添加课程
@@ -487,13 +436,13 @@
 			},
 			// 显示课程点击详情
 			showDetail: function(index) {
-				uni.$u.api.getAllCourse().then((res) => {
-					console.log(res)
-					uni.showModal({
-						title: "后端数据",
-						content: JSON.stringify(res.results)
-					})
-				})
+				// uni.$u.api.getAllCourse().then((res) => {
+				// 	// console.log(res)
+				// 	uni.showModal({
+				// 		title: "后端数据",
+				// 		content: JSON.stringify(res)
+				// 	})
+				// })
 				console.log(index)
 				const str = '地点：' + this.courseList[index].cdmc + '\n' +
 					'教师：' + this.courseList[index].xm + '\n' +
@@ -526,7 +475,7 @@
 			style() {
 				let StatusBar = this.StatusBar;
 				let CustomBar = this.CustomBar;
-				let value = StatusBar + CustomBar;
+				// 定义顶栏的高度
 				let style = `height:${CustomBar}px;`;
 				return style
 			},
@@ -535,7 +484,8 @@
 				let CustomBar = this.CustomBar;
 				let style = `height:calc(100vh - 100rpx - env(safe-area-inset-bottom) / 2 - ${CustomBar}px - 70rpx);`;
 				return style
-			}
+			},
+			...mapState(['courseList'])
 		},
 	}
 </script>
@@ -582,20 +532,25 @@
 	// 		}
 	// 	}
 
-	// 	.cu-center {
-	// 		width: 50vw;
-	// 		display: flex;
-	// 		flex-direction: row;
-	// 		justify-content: center;
-	// 		align-items: center;
+	// .topbar {
+	// 	padding-top: 50rpx;
+	// 	height: 180rpx;
+	// }
 
-	// 		position: relative;
+	.cu-right {
+		width: 50vw;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 
-	// 		.week-btn {
-	// 			position: absolute;
-	// 			bottom: 10rpx;
-	// 		}
-	// 	}
+		position: relative;
+
+		.week-btn {
+			position: absolute;
+			bottom: 10rpx;
+		}
+	}
 
 	// 	.cu-right {
 	// 		width: 25vw;
