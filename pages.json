@@ -24,13 +24,14 @@
 		}, {
 			"path": "pages/index/grade/grade",
 			"style": {
-				"navigationBarTitleText": "成绩查询",
+				"navigationStyle": "custom",
+				// "navigationBarTitleText": "成绩查询",
 				"enablePullDownRefresh": false
 			}
 		}, {
 			"path": "pages/index/exam/exam",
 			"style": {
-				"navigationBarTitleText": "考试查询",
+				// "navigationBarTitleText": "考试查询",
 				"enablePullDownRefresh": false
 			}
 
@@ -73,7 +74,8 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "custom"
 	},
 	"uniIdRouter": {},
 	"tabBar": {

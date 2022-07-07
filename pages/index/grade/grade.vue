@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<!-- <cu-custom bgColor="bg-blue-11" :isBack="true">
+		<cu-custom bgColor="bg-blue-11" :isBack="true">
 			<view slot="backText">
 				返回
 			</view>
 			<view slot="content">
 				加权:{{vjq}}-绩点:{{vjd}}
 			</view>
-		</cu-custom> -->
+		</cu-custom>
 		<view class="bg-blue-1">
 			<view class="cu-bar bg-white solid-bottom">
 				<view class="action">
@@ -110,11 +110,12 @@
 					this.emptyType = "success";
 					// 更新空白时的信息
 					this.emptyMsg = "加载完成";
+					this.calcu();
 				})
 				// console.log("getGrade");
 
 
-				// this.calcu();
+
 				// let postData = {
 				// 	username: uni.getStorageSync('user_info').username,
 				// 	password: uni.getStorageSync('user_info').password,
@@ -226,7 +227,7 @@
 			choChange: function(index) {
 				this.choFlag[index] = !this.choFlag[index];
 				// 重新计算绩点
-				// this.calcu();
+				this.calcu();
 			},
 			// 计算加权与绩点
 			calcu: function() {
@@ -237,6 +238,7 @@
 				let vjd = 0;
 				// 统计成绩数，用于判断是否输出结果
 				let count = 0;
+				console.log("calc")
 				for (let i = 0; i < this.gradeList.length; i++) {
 					if (this.choFlag[i]) {
 						count++;
@@ -272,6 +274,7 @@
 					}
 				}
 				// console.log(sumxf, vjq, vjd)
+				console.log(count)
 				if (count) {
 					this.vjq = (vjq / sumxf).toFixed(2);
 					this.vjd = (vjd / sumxf).toFixed(2);

@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<!-- <cu-custom bgColor="bg-blue-1" :isBack="true">
+		<cu-custom bgColor="bg-blue-1" :isBack="true">
 			<view slot="backText">
 				返回
 			</view>
 			<view slot="content">
 				考试查询
 			</view>
-		</cu-custom> -->
+		</cu-custom>
 		<view class="bg-blue-1">
 			<view class="cu-bar bg-white solid-bottom">
 				<view class="action">

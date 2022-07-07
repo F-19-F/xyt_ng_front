@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<!-- <cu-custom bgColor="bg-blue-11" :isBack="true">
+		<cu-custom bgColor="bg-blue-11" :isBack="true">
 			<view slot="backText">
 				返回
 			</view>
 			<view slot="content">
 				空教室
 			</view>
-		</cu-custom> -->
+		</cu-custom>
 		<view class="cu-bar bg-white solid-bottom">
 			<view class="action">
 				<text class="cuIcon-title text-orange"></text>选择学期
