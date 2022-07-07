@@ -4,19 +4,21 @@
 			"path": "pages/course/course",
 			"style": {
 				"navigationStyle": "custom",
-				"navigationBarTitleText": "课表",
+				// "navigationBarTitleText": "课表",
 				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "发现",
+				"navigationStyle": "custom",
+				// "navigationBarTitleText": "发现",
 				"enablePullDownRefresh": false
 			}
 		}, {
 			"path": "pages/me/me",
 			"style": {
-				"navigationBarTitleText": "关于",
+				"navigationStyle": "custom",
+				// "navigationBarTitleText": "关于",
 				"enablePullDownRefresh": false
 			}
 		}, {
@@ -42,6 +44,7 @@
 		}, {
 			"path": "pages/index/map/map",
 			"style": {
+				"navigationStyle": "custom",
 				"navigationBarTitleText": "校园地图",
 				"enablePullDownRefresh": false
 			}
@@ -49,6 +52,14 @@
 		}, {
 			"path": "pages/login/login",
 			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/index/phone/phone",
+			"style": {
+				"navigationStyle": "custom",
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}

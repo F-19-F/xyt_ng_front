@@ -14,6 +14,7 @@
 					</view>
 				</view>
 			</view>
+			<image src="@/static/wave.gif" mode="scaleToFill" class="gif-wave"></image>
 		</view>
 		<view class="margin-top-sm">
 			<view class="cu-list menu card-menu sm-border">

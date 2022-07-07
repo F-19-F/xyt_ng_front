@@ -1,8 +1,9 @@
 <template>
 	<view>
-		<map id="myMap" style="width: 100%;height:93vh;" :latitude="latitude" :longitude="longitude" :markers="markers"
-			:include-points="markers" show-location='true' scale='18' bindmarkertap='getInfo' show-compass='true'>
-		</map>
+		<cu-custom bgColor="bg-blue-11" :isBack="true">
+			<view slot="backText">返回</view>
+			<view slot="content">校园地图</view>
+		</cu-custom>
 		<scroll-view scroll-x class="bg-white nav" :style="'width:100%;'" scroll-with-animation
 			:scroll-left="scrollLeft">
 			<view class="cu-item" :class="index==TabCur?'text-green cur':''" v-for="(item, index) in tabList"
@@ -10,6 +11,9 @@
 				{{item}}
 			</view>
 		</scroll-view>
+		<map id="myMap" style="width: 100%;height:93vh;" :latitude="latitude" :longitude="longitude" :markers="markers"
+			:include-points="markers" show-location='true' scale='18' bindmarkertap='getInfo' show-compass='true'>
+		</map>
 	</view>
 </template>
 

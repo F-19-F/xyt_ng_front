@@ -45,8 +45,8 @@
 						@click="navigate('classroom',false)" style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/study.png'></image>空教室
 					</button>
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						@click="navigate('book')" style="height:80rpx;">
+					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow" @click="wait()"
+						style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/library.png'></image>馆藏查询
 					</button>
 				</view>
@@ -150,7 +150,7 @@
 </template>
 
 <script>
-	import cuCarousel from "../../components/cu-carousel/cu-carousel.vue"
+	import cuCarousel from "@/components/cu-carousel/cu-carousel.vue"
 	export default {
 		name: "home",
 		data() {
@@ -182,7 +182,7 @@
 			navigate(nav, required = false) {
 				// required为true表明需要登录
 				if (required) {
-					const value = uni.getStorageSync("user_info")
+					const value = this.$store.state.loginState;
 					if (!value) {
 						uni.showModal({
 							content: "请登录后再使用！",
@@ -192,41 +192,7 @@
 					}
 				}
 				// 登录并注册
-				if (nav === 'dry') {
-					// const user = uni.getStorageSync("user_info")
-					// this.username = user["username"]
-					// this.password = user["password"]
-					// uni.showLoading()
-					// uni.request({
-					// 	url: this.url + "user/register/",
-					// 	method: "POST",
-					// 	data: {
-					// 		username: this.username,
-					// 		password: this.password,
-					// 	},
-					// 	success: () => {
-					// 		uni.request({
-					// 			url: this.url + "user/login/",
-					// 			method: "POST",
-					// 			data: {
-					// 				username: this.username,
-					// 				password: this.password,
-					// 			},
-					// 			success: (res) => {
-					// 				uni.hideLoading()
-					// 				res = res.data
-					// 				uni.setStorageSync('token', "Bearer " + res.data.token)
-					// 				uni.navigateTo({
-					// 					url: "/pages/home/" + nav + "/" + nav,
-					// 					fail: res => {
-					// 						console.log(res)
-					// 					}
-					// 				})
-					// 			}
-					// 		})
-					// 	}
-					// })
-				} else {
+				if (nav === 'dry') {} else {
 					uni.navigateTo({
 						url: "/pages/index/" + nav + "/" + nav,
 						fail: res => {
@@ -255,13 +221,13 @@
 			// 		showCancel: false,
 			// 	})
 			// },
-			// wait: function() {
-			// 	wx.showModal({
-			// 		title: '提示',
-			// 		content: '敬请期待~~',
-			// 		showCancel: false,
-			// 	})
-			// },
+			wait: function() {
+				wx.showModal({
+					title: '提示',
+					content: '敬请期待~~',
+					showCancel: false,
+				})
+			},
 			// 公教地图
 		},
 		computed: {
