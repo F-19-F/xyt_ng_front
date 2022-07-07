@@ -45,8 +45,6 @@
 				</view>
 			</view>
 		</view>
-		<!-- 占位 -->
-		<!-- <view :style="'height:calc('+ CustomBar+'px + 70rpx);'"></view> -->
 		<!-- 课程区域 -->
 		<scroll-view scroll-y="true" :style="marginHeight" style="width: 100vw;">
 			<view :style="'background-image: url('+bacimg+');width: 100vw;'"
@@ -87,7 +85,7 @@
 				</view>
 			</view>
 		</scroll-view>
-		<!-- 侧边栏设置 -->
+		<!-- 侧边栏设置model -->
 		<view class="cu-modal drawer-modal justify-start" :class="modalName=='DrawerModal'?'show':''"
 			@click="modalName = null">
 			<view class="cu-dialog basis-lg bg-gradual-blue text-black" @tap.stop=""
@@ -150,7 +148,7 @@
 				</view>
 			</view>
 		</view>
-		<!-- 学期选择 -->
+		<!-- 学期选择model -->
 		<term-picker @xnm="xnmClick" @xqm="xqmClick" @yearArray="coYearClick" pickerType="course"></term-picker>
 		<view class="cu-modal" :class="modalName=='XqModel'?'show':''">
 			<view class="cu-dialog">
@@ -482,7 +480,9 @@
 			marginHeight() {
 				let StatusBar = this.StatusBar;
 				let CustomBar = this.CustomBar;
-				let style = `height:calc(100vh - 100rpx - env(safe-area-inset-bottom) / 2 - ${CustomBar}px - 70rpx);`;
+
+				let style = `height:calc(100vh - 70rpx - env(safe-area-inset-bottom) / 2 - ${CustomBar}px - 0rpx);`;
+				// style = `height:`
 				return style
 			},
 			...mapState(['courseList'])
@@ -491,71 +491,61 @@
 </script>
 
 <style lang="scss">
-	// .cu-custom {
-	// 	width: 100vw;
-	// 	display: flex;
-	// 	flex-direction: row;
-	// 	justify-content: space-between;
-	// 	// align-items: ;
-
-	// 	// 顶部左侧打开抽屉
-	// 	.cu-left {
-	// 		width: 25vw;
-	// 		display: flex;
-	// 		flex-direction: row;
-
-	// 		position: relative;
-
-	// 		.left-rectangle {
-	// 			height: 50rpx;
-	// 			width: 80rpx;
-
-	// 			position: absolute;
-	// 			bottom: 14rpx;
-	// 		}
-
-	// 		.left-round {
-	// 			width: 66rpx;
-	// 			height: 66rpx;
-	// 			border-radius: 50%;
-
-	// 			box-shadow: 0 0 1rpx;
-
-	// 			position: absolute;
-	// 			left: 50rpx;
-	// 			bottom: 6rpx;
-
-	// 			display: flex;
-	// 			flex-direction: row;
-	// 			justify-content: center;
-	// 			align-items: center;
-	// 		}
-	// 	}
-
-	// .topbar {
-	// 	padding-top: 50rpx;
-	// 	height: 180rpx;
-	// }
-
-	.cu-right {
-		width: 50vw;
+	.cu-custom {
+		width: 100vw;
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
-		align-items: center;
+		justify-content: space-between;
 
-		position: relative;
+		// 顶部左侧打开抽屉
+		.cu-left {
+			width: 25vw;
+			display: flex;
+			flex-direction: row;
 
-		.week-btn {
-			position: absolute;
-			bottom: 10rpx;
+			position: relative;
+
+			.left-rectangle {
+				height: 50rpx;
+				width: 80rpx;
+
+				position: absolute;
+				bottom: 14rpx;
+			}
+
+			.left-round {
+				width: 66rpx;
+				height: 66rpx;
+				border-radius: 50%;
+
+				box-shadow: 0 0 1rpx;
+
+				position: absolute;
+				left: 50rpx;
+				bottom: 6rpx;
+
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+			}
+		}
+
+		.cu-center {
+			width: 50vw;
+			display: flex;
+			flex-direction: row;
+			justify-content: right;
+			align-items: center;
+
+			position: relative;
+
+			.week-btn {
+				position: absolute;
+				bottom: 10rpx;
+			}
 		}
 	}
-
-	// 	.cu-right {
-	// 		width: 25vw;
-	// 	}
-	// }
 
 	.course-bg {
 		background-size: cover;

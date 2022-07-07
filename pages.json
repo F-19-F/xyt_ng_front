@@ -3,7 +3,9 @@
 		{
 			"path": "pages/course/course",
 			"style": {
-				"navigationBarTitleText": "课表"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "课表",
+				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/index/index",
@@ -44,17 +46,15 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	    ,{
-            "path" : "pages/login/login",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
