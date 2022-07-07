@@ -4,16 +4,19 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 const store = new Vuex.Store({
 	state: {
-		loginState: !!uni.getStorageSync('loginState') ? true : false,
+		// 登录的用户信息
 		userInfo: !!uni.getStorageSync('userInfo') ? JSON.parse(uni.getStorageSync('userInfo')) : {
 			name: '未登录用户',
 			pfs: '未知专业',
 			cls: '未知班级',
 			num: '学号未知',
-			token: '',
 			isTeacher: false
 		},
-
+		courseList: !!uni.getStorageSync('courseList') ? getStorageSync('courseList') : [],
+		// 是否登录
+		loginState: !!uni.getStorageSync('loginState') ? true : false,
+		// 登录的token
+		loginToken: !!uni.getStorageSync('token') ? uni.getStorageSync('token') : ''
 	},
 	mutations: {
 		userLogin(state, userInfo) {
@@ -24,9 +27,8 @@ const store = new Vuex.Store({
 
 		},
 		updateToken(state, token) {
-			state.userInfo.token = token;
+			state.loginToken = token;
 			uni.setStorageSync('token', token)
-			console.log("token " + token)
 		},
 		userLogout(state) {
 			state.loginState = false
@@ -35,12 +37,15 @@ const store = new Vuex.Store({
 				pfs: '未知专业',
 				cls: '未知班级',
 				num: '学号未知',
-				token: '',
 				isTeacher: false
 			}
+			state.loginToken = ''
 			uni.clearStorageSync('userInfo')
 			uni.clearStorageSync('loginState')
 			uni.clearStorageSync('token')
+		},
+		updateCourseAction(state, courseList) {
+			state.courseList = courseList;
 		}
 
 	},
@@ -53,8 +58,10 @@ const store = new Vuex.Store({
 			context.commit('userLogout');
 		},
 		updateToken(context, token) {
-			console.log(token)
 			context.commit('updateToken', token)
+		},
+		updateCourseAction(context, courseList) {
+			context.commit('updateCourseAction', courseList)
 		}
 	}
 })
