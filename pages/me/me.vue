@@ -14,9 +14,6 @@
 					</view>
 				</view>
 			</view>
-			<image
-				src="https://cdn.nlark.com/yuque/0/2019/gif/280373/1570670848649-assets/web-upload/3dbaa72a-062b-470f-9b9d-058ff8f85ab8.gif"
-				mode="scaleToFill" class="gif-wave"></image>
 		</view>
 		<view class="margin-top-sm">
 			<view class="cu-list menu card-menu sm-border">
@@ -96,17 +93,23 @@
 
 			},
 			logout() {
-				uni.showModal({
-					content: "是否切换账号？(此操作会清空信息缓存)",
-					success: res => {
-						if (res.confirm) {
-							this.userLogoutAction()
-							uni.navigateTo({
-								url: "/pages/login/login"
-							})
+				if (this.loginState) {
+					uni.showModal({
+						content: "是否切换账号？(此操作会清空信息缓存)",
+						success: res => {
+							if (res.confirm) {
+								this.userLogoutAction()
+								uni.navigateTo({
+									url: "/pages/login/login"
+								})
+							}
 						}
-					}
-				})
+					})
+				} else {
+					uni.navigateTo({
+						url: "/pages/login/login"
+					})
+				}
 			},
 		}
 	}
