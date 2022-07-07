@@ -43,10 +43,6 @@
 </template>
 
 <script>
-	import {
-		req,
-		rootUrl
-	} from '../../utils/util.js'
 	export default {
 		data() {
 			return {
@@ -71,10 +67,16 @@
 
 				} else {
 					uni.$u.api.login(this.form.username, this.form.password).then(res => {
-						uni.navigateBack({
-							success: (res) => {
-								console.log(res)
-							}
+						uni.showToast({
+							title: "登录成功!"
+						})
+						setTimeout(() => uni.navigateBack(), 500)
+						// console.log(res)
+					}).catch(res => {
+						// console.log(JSON.stringify(res))
+						uni.showToast({
+							title: "用户名或者密码错误",
+							icon: 'error'
 						})
 					});
 				}
