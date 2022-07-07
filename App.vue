@@ -30,6 +30,19 @@
 		},
 		onLaunch: function() {
 			console.log('App Launch')
+			uni.getSystemInfo({
+				success: function(e) {
+					// 获取状态栏高度
+					Vue.prototype.StatusBar = e.statusBarHeight;
+					// 自定义顶栏的高度
+					Vue.prototype.CustomBar = 70;
+					// Vue.prototype.Custom = custom;
+					// Vue.prototype.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
+					// console.log(e.statusBarHeight)
+					// console.log(Vue.prototype.Custom)
+					// console.log(Vue.prototype.CustomBar)
+				}
+			})
 		},
 		onShow: function() {
 			console.log('App Show')
