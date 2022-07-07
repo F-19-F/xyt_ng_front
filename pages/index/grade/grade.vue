@@ -88,28 +88,33 @@
 			},
 			// 获取分数 todo
 			getGrade: function() {
-				this.gradeList = [{
-					// 课程
-					kc: "刘灿老师的课",
-					// 学分
-					xf: "2",
-					// 绩点
-					jd: "4.0",
-					// 用于向后台请求详细数据
-					jxb_id: "666", //第一层不展示
-					// 学年名
-					xnm: "",
-					// 学期名
-					xqm: "",
-					cj: "90",
-				}, ];
+				// this.gradeList = [{
+				// 	// 课程
+				// 	kc: "刘灿老师的课",
+				// 	// 学分
+				// 	xf: "2",
+				// 	// 绩点
+				// 	jd: "4.0",
+				// 	// 用于向后台请求详细数据
+				// 	jxb_id: "666", //第一层不展示
+				// 	// 学年名
+				// 	xnm: "",
+				// 	// 学期名
+				// 	xqm: "",
+				// 	cj: "90",
+				// }, ];
+				uni.$u.api.getAllScore().then(res => {
+					this.gradeList = res;
+					this.choFlag = new Array(this.gradeList.length).fill(true);
+					// 更新提示信息
+					this.emptyType = "success";
+					// 更新空白时的信息
+					this.emptyMsg = "加载完成";
+				})
 				// console.log("getGrade");
-				this.choFlag = new Array(this.gradeList.length).fill(true);
-				// 更新提示信息
-				this.emptyType = "success";
-				// 更新空白时的信息
-				this.emptyMsg = "加载完成";
-				this.calcu();
+
+
+				// this.calcu();
 				// let postData = {
 				// 	username: uni.getStorageSync('user_info').username,
 				// 	password: uni.getStorageSync('user_info').password,
@@ -221,7 +226,7 @@
 			choChange: function(index) {
 				this.choFlag[index] = !this.choFlag[index];
 				// 重新计算绩点
-				this.calcu();
+				// this.calcu();
 			},
 			// 计算加权与绩点
 			calcu: function() {

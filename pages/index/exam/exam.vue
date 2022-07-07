@@ -86,18 +86,25 @@
 			},
 			// todo 查询考试信息
 			getExam: function() {
-				this.emptyType = "success";
-				this.emptyMsg = "加载完成";
-				this.examList = [{
-					// 课程名称
-					kcmc: "刘灿老师的课",
-					// 开始时间
-					kssj: "2022-09-01 9:00",
-					// 剩余天数
-					rday: "4",
-					// 地点
-					cdbh: "7B201",
-				}, ];
+				// this.examList = [{
+				// 	// 课程名称
+				// 	kcmc: "刘灿老师的课",
+				// 	// 开始时间
+				// 	kssj: "2022-09-01 9:00",
+				// 	// 剩余天数
+				// 	rday: "4",
+				// 	// 地点
+				// 	cdbh: "7B201",
+				// }, ];
+				uni.$u.api.getAllExam().then(res => {
+					this.examList = res;
+					this.emptyType = "success";
+					this.emptyMsg = "加载完成";
+				}).catch(res => {
+					this.emptyType = "error"
+					this.emptyMsg = res.msg
+					this.examList = []
+				})
 				// let postData = {
 				// 	username: uni.getStorageSync('user_info').username,
 				// 	password: uni.getStorageSync('user_info').password,

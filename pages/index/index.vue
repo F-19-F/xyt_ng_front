@@ -236,18 +236,18 @@
 				}
 
 			},
-			tips(nav) {
-				this.$req('api/config/tips/', "get", {
-					search: nav,
-				}, res => {
-					console.log(res)
-					if (res.code === 20000) {
-						uni.previewImage({
-							urls: [res.data[0].image],
-						})
-					}
-				})
-			},
+			// tips(nav) {
+			// 	this.$req('api/config/tips/', "get", {
+			// 		search: nav,
+			// 	}, res => {
+			// 		console.log(res)
+			// 		if (res.code === 20000) {
+			// 			uni.previewImage({
+			// 				urls: [res.data[0].image],
+			// 			})
+			// 		}
+			// 	})
+			// },
 			// more: function() {
 			// 	wx.showModal({
 			// 		title: '提示',
