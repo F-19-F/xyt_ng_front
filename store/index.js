@@ -10,6 +10,7 @@ const store = new Vuex.Store({
 			pfs: '未知专业',
 			cls: '未知班级',
 			num: '学号未知',
+			phone: '未登录',
 			isTeacher: false
 		},
 		courseList: !!uni.getStorageSync('courseList') ? getStorageSync('courseList') : [],
@@ -37,6 +38,7 @@ const store = new Vuex.Store({
 				pfs: '未知专业',
 				cls: '未知班级',
 				num: '学号未知',
+				phone: '未知',
 				isTeacher: false
 			}
 			state.loginToken = ''

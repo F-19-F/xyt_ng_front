@@ -33,6 +33,7 @@ module.exports = (vm) => {
 					pfs: res.pls,
 					cls: res.cls,
 					num: res.username,
+					phone: res.phone,
 					isTeacher: isteacher
 				}
 				vm.$store.commit('userLogin', userInfo);

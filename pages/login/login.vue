@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<!-- <cu-custom bgColor="bg-blue-11" :isBack="true">
+		<cu-custom bgColor="bg-blue-11" :isBack="true">
 			<view slot="backText">
 				返回
 			</view>
 			<view slot="content">
 				登录
 			</view>
-		</cu-custom> -->
+		</cu-custom>
 		<view class="margin padding-sm bg-white" style="border-radius:20rpx;">
 			<view class="cu-card case no-card">
 				<view class="cu-item shadow">

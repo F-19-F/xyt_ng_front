@@ -32,7 +32,7 @@
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>发布作业
 					</button>
 					<button v-if="!isTeacher" class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						style="height:80rpx;">
+						style="height:80rpx;" @click="navigate('courseselect',true)">
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课
 					</button>
 					<button v-else class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
@@ -45,8 +45,8 @@
 						@click="navigate('classroom',false)" style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/study.png'></image>空教室
 					</button>
-					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow" @click="wait()"
-						style="height:80rpx;">
+					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
+						@click="navigate('book')" style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/library.png'></image>馆藏查询
 					</button>
 				</view>
@@ -105,11 +105,11 @@
 				</view>
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						style="height:80rpx;">
+						style="height:80rpx;" @click="navigate('courseinf')">
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课信息
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						style="height:80rpx;">
+						style="height:80rpx;" @click="navigate('detailinf',true)">
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>个人信息
 					</button>
 				</view>
@@ -139,7 +139,7 @@
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>教学班
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						style="height:80rpx;">
+						style="height:80rpx;" @click="navigate('detailinf',true)">
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>个人信息
 					</button>
 				</view>
@@ -202,18 +202,23 @@
 				}
 
 			},
-			// tips(nav) {
-			// 	this.$req('api/config/tips/', "get", {
-			// 		search: nav,
-			// 	}, res => {
-			// 		console.log(res)
-			// 		if (res.code === 20000) {
-			// 			uni.previewImage({
-			// 				urls: [res.data[0].image],
-			// 			})
-			// 		}
-			// 	})
-			// },
+			tips(nav) {
+				if (nav.indexOf('calendar') >= 0) {
+					uni.previewImage({
+						urls: ["https://cos.swuapp.lhb.ink/xl/2021-2022.jpg"],
+					})
+				}
+				// this.$req('api/config/tips/', "get", {
+				// 	search: nav,
+				// }, res => {
+				// 	console.log(res)
+				// 	if (res.code === 20000) {
+				// 		uni.previewImage({
+				// 			urls: [res.data[0].image],
+				// 		})
+				// 	}
+				// })
+			},
 			// more: function() {
 			// 	wx.showModal({
 			// 		title: '提示',

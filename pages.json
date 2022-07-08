@@ -38,7 +38,7 @@
 		}, {
 			"path": "pages/index/classroom/classroom",
 			"style": {
-				"navigationBarTitleText": "空教室查询",
+				// "navigationBarTitleText": "空教室查询",
 				"enablePullDownRefresh": false
 			}
 
@@ -46,14 +46,14 @@
 			"path": "pages/index/map/map",
 			"style": {
 				"navigationStyle": "custom",
-				"navigationBarTitleText": "校园地图",
+				// "navigationBarTitleText": "校园地图",
 				"enablePullDownRefresh": false
 			}
 
 		}, {
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "",
+				// "navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 
@@ -61,12 +61,55 @@
 			"path": "pages/index/phone/phone",
 			"style": {
 				"navigationStyle": "custom",
+				// "navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/index/courseselect/courseselect",
+			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 
 		}
-	],
+	    ,{
+            "path" : "pages/index/book/book",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/book/bookdetail/bookdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/courseinf/courseinf",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/detailinf/detailinf",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
