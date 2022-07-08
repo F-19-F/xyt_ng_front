@@ -109,6 +109,24 @@
             }
             
         }
+        ,{
+            "path" : "pages/index/work/work",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/work/workdetail/workdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"

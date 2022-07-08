@@ -69,14 +69,33 @@ module.exports = (vm) => {
 		}
 	})
 	api.selectCourse = (jxb_id) => {
-		return http.post("peopleclass/", {
-			student: vm.$store.state.userInfo.id,
-			educlass: jxb_id
+		return api.getCsrfToken().then(res => {
+			let csrf_token = res.csrftoken;
+			// console.log(csrf_token)
+			return http.post("peopleclass/", {
+				student: vm.$store.state.userInfo.id,
+				educlass: jxb_id
+			}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			})
 		})
+
 	}
 	api.unselectCourse = (jxb_id) => {
-		return http.delete(`peopleclass/${jxb_id}/`)
+		return api.getCsrfToken().then(res => {
+			let csrf_token = res.csrftoken;
+			return http.delete(`peopleclass/${jxb_id}/`, {}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			})
+		})
+		// return http.
 	}
+	api.getWorks = () => http.get("work/mywork/")
+	api.getWorkdetail = id => http.get(`work/${id}/`)
 	api.getAllScore = () => http.get("score/myscore/")
 	api.getAllExam = () => http.get("exam/myexam/")
 	api.getAllWork = () => http.get("work/")

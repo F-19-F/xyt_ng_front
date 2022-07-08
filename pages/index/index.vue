@@ -23,7 +23,7 @@
 				<view class="flex-sub margin-xs">
 					<button v-if="!isTeacher"
 						class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						style="height:80rpx;">
+						style="height:80rpx;" @click="navigate('work',true)">
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>作业
 					</button>
 					<button v-else
