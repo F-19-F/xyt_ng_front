@@ -6,6 +6,7 @@ module.exports = (vm) => {
 	api.getCsrfToken = () => http.get("getCsrftoken/")
 	api.login = (username, password) => {
 		// 插入csrftoken -> 发送登录post -> 获取token->请求用户信息
+		let id = 0;
 		return api.getCsrfToken().then(res => {
 				let csrf_token = res.csrftoken;
 				return http.post('auth/login/', {
@@ -22,13 +23,17 @@ module.exports = (vm) => {
 				vm.$store.commit('updateToken', res.key);
 				return http.get('auth/user/')
 				// 通过token拿到用户id，再请求restful的后端接口,存储为userInfo
-			}).then(res => http.get(`user/${res.pk}/`))
+			}).then(res => {
+				id = res.pk;
+				return http.get(`user/${res.pk}/`)
+			})
 			.then(res => {
 				let isteacher = false;
 				if (res.identity == 1) {
 					isteacher = true;
 				}
 				userInfo = {
+					id: id,
 					name: res.name,
 					pfs: res.pls,
 					cls: res.cls,
@@ -36,8 +41,24 @@ module.exports = (vm) => {
 					phone: res.phone,
 					isTeacher: isteacher
 				}
+				console.log("id:" + id)
 				vm.$store.commit('userLogin', userInfo);
 			});
+	}
+	api.updateUserinfo = userInfo => {
+		newUserinfo = {
+			'name': userInfo.name,
+			'username': userInfo.num,
+			...userInfo
+		}
+		// console.log(newUserinfo)
+		return http.put(`user/${userInfo.id}/`, {
+			...newUserinfo
+		}).then(res => {
+			// 更新客户端用户信息
+			vm.$store.commit('userLogin', userInfo);
+		})
+
 	}
 	api.getAllCourse = () => http.get("course/mycourse/")
 	api.getAllScore = () => http.get("score/myscore/")

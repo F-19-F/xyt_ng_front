@@ -6,6 +6,7 @@ const store = new Vuex.Store({
 	state: {
 		// 登录的用户信息
 		userInfo: !!uni.getStorageSync('userInfo') ? JSON.parse(uni.getStorageSync('userInfo')) : {
+			id: undefined,
 			name: '未登录用户',
 			pfs: '未知专业',
 			cls: '未知班级',
@@ -34,6 +35,7 @@ const store = new Vuex.Store({
 		userLogout(state) {
 			state.loginState = false
 			state.userInfo = {
+				id: undefined,
 				name: '未登录用户',
 				pfs: '未知专业',
 				cls: '未知班级',
