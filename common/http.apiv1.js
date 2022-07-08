@@ -61,6 +61,22 @@ module.exports = (vm) => {
 
 	}
 	api.getAllCourse = () => http.get("course/mycourse/")
+	// 学年是int，而学期是string
+	api.getSelectCourse = (xqm, xnm) => http.get("educlass/courseselect/", {
+		params: {
+			xnm,
+			xqm
+		}
+	})
+	api.selectCourse = (jxb_id) => {
+		return http.post("peopleclass/", {
+			student: vm.$store.state.userInfo.id,
+			educlass: jxb_id
+		})
+	}
+	api.unselectCourse = (jxb_id) => {
+		return http.delete(`peopleclass/${jxb_id}/`)
+	}
 	api.getAllScore = () => http.get("score/myscore/")
 	api.getAllExam = () => http.get("exam/myexam/")
 	api.getAllWork = () => http.get("work/")

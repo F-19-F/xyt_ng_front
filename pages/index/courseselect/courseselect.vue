@@ -36,16 +36,17 @@
 				:class="index % 2 ? 'bg-gray' : 'bg-white'">
 				<view class="list-subitem">
 					<text class="text-bold">{{ item.kc }}</text>
-					<text> 任课老师 </text>
+					<text> {{item.teacher}} </text>
 				</view>
 				<view class="list-subitem margin-top-sm">
 					<view class="flex-sub text-left"> 学分：{{ item.xf }} </view>
-					<view class="flex-sub text-center"> 地点：{{ item.cdmc }} </view>
+					<view class="flex-sub text-center"> 地点：{{ item.loc }} </view>
 					<view class="flex-sub text-right">
-						<button class="cu-btn bg-orange-1 round shadow sm"
-							@click="detailGrade(item.jxb_id, item.xnm, item.xqm, item.kc)">
+						<button v-if="!item.selected" class="cu-btn bg-orange-1 round shadow sm"
+							@click="selectCourse(item.jxb_id,index)">
 							选课
 						</button>
+						<text v-else class="text-green">已选上</text>
 					</view>
 				</view>
 			</view>
@@ -55,7 +56,7 @@
 		<cu-empty :type="emptyType">
 			<view slot="text" class="">
 				<view class="margin-bottom-sm">{{ emptyMsg }}</view>
-				<button v-if="emptyType == 'search'" class="cu-btn bg-orange-1 round shadow-blur" @click="getGrade">
+				<button v-if="emptyType == 'search'" class="cu-btn bg-orange-1 round shadow-blur" @click="getSelect">
 					查询
 				</button>
 			</view>
@@ -73,15 +74,14 @@
 				courseList: [],
 				emptyType: "search",
 				emptyMsg: "点击最上方按钮切换学期，或点击下方按钮直接查询。",
-				coursenamesearch: ''
+				coursenamesearch: '',
+				allList: []
 			};
 		},
 		components: {
 			termPicker,
 		},
-		mounted() {
-			this.getGrade();
-		},
+		mounted() {},
 		methods: {
 			xqmClick(e) {
 				this.xqm = e;
@@ -90,132 +90,51 @@
 				this.xnm = e;
 			},
 			confirmClick: function() {
-				this.getGrade();
+				this.getSelect();
 			},
 			// 获取分数 todo
-			getGrade: function() {
-				uni.$u.api.getAllScore().then(res => {
-					this.courseList = res;
-					// 更新提示信息
-					this.emptyType = "success";
-					// 更新空白时的信息
-					this.emptyMsg = "加载完成";
-					this.calcu();
+			getSelect: function() {
+				uni.$u.api.getSelectCourse(this.xqm, this.xnm).then(res => {
+					this.courseList = res
+					this.allList = res
+					if (res.length > 0) {
+						this.emptyType = "success"
+						// 更新空白时的信息
+						this.emptyMsg = "加载完成"
+					} else {
+						this.emptyType = "success"
+						this.emptyMsg = "未查询到信息"
+						this.courseList = []
+					}
+
+				}).catch(res => {
+					this.emptyType = "error"
+					this.emptyMsg = res[0]
+					this.courseList = []
 				})
-				// console.log("getGrade");
-
-
-
-				// let postData = {
-				// 	username: uni.getStorageSync('user_info').username,
-				// 	password: uni.getStorageSync('user_info').password,
-				// 	xnm: this.xnm,
-				// 	xqm: this.xqm,
-				// }
-				// this.$req("api/study/grade/", "post", postData, res => {
-				// 	if (res.code === 10000) {
-				// 		const gradeLength = res.data.grade_list.length
-				// 		if (gradeLength) {
-				// 			this.courseList = res.data.grade_list
-				// 			// 选中情况
-				// 			this.choFlag = new Array(gradeLength).fill(true)
-				// 			// 更新提示信息
-				// 			this.emptyType = "success"
-				// 			// 更新空白时的信息
-				// 			this.emptyMsg = "加载完成"
-				// 			this.calcu()
-				// 		} else {
-				// 			this.emptyType = "success"
-				// 			this.emptyMsg = "未查询到信息"
-				// 			this.courseList = []
-				// 		}
-				// 	} else {
-				// 		this.emptyType = "error"
-				// 		this.emptyMsg = res.msg
-				// 		this.courseList = []
-				// 	}
-				// })
 			},
 			// 查看详情分数 todo
-			detailGrade: function(jxb_id, xnm, xqm, kc) {
-				//   uni.showModal({
-				//     title: kc,
-				//     content: "平时成绩: 99\n期末成绩: 80",
-				//     showCancel: false,
-				//   });
-				let showDetail = function(res) {
-					if (res.code === 10000) {
-						let str = "";
-						for (let i in res.data.detail_grade) {
-							str +=
-								res.data.detail_grade[i].xmblmc +
-								"：" +
-								res.data.detail_grade[i].xmcj +
-								"\n";
-						}
-						uni.showModal({
-							title: kc,
-							content: str.substring(0, str.length - 1),
-							showCancel: false,
-						});
-					} else {
-						uni.showModal({
-							title: "提示",
-							content: res.msg,
-							showCancel: false,
-						});
-					}
-				};
-				showDetail({
-					code: 10000,
-					data: {
-						detail_grade: [{
-							xmblmc: '平时成绩',
-							xmcj: '90'
-						}, {
-							xmblmc: '期末成绩',
-							xmcj: '88'
-						}]
-					}
+			selectCourse: function(jxb_id, index) {
+				this.$u.api.selectCourse(jxb_id).then(res => {
+					uni.showToast({
+						title: "选课成功!"
+					});
+					this.courseList[index].selected = true
+				}).catch(res => {
+					uni.showToast({
+						icon: "error",
+						title: "选课失败" + res[0]
+					})
 				})
-				//   this.$req(
-				//     "api/study/detail_grade/",
-				//     "post",
-				//     {
-				//       username: wx.getStorageSync("user_info").username,
-				//       password: wx.getStorageSync("user_info").password,
-				//       jxb_id: jxb_id,
-				//       xnm: xnm,
-				//       xqm: xqm === "3" ? "1" : "2",
-				//     },
-				//     function (res) {
-				//       if (res.code === 10000) {
-				//         let str = "";
-				//         for (let i in res.data.detail_grade) {
-				//           str +=
-				//             res.data.detail_grade[i].xmblmc +
-				//             "：" +
-				//             res.data.detail_grade[i].xmcj +
-				//             "\n";
-				//         }
-				//         uni.showModal({
-				//           title: kc,
-				//           content: str.substring(0, str.length - 1),
-				//           showCancel: false,
-				//         });
-				//       } else {
-				//         uni.showModal({
-				//           title: "提示",
-				//           content: res.msg,
-				//           showCancel: false,
-				//         });
-				//       }
-				//     }
-				//   );
 			},
 			// 根据条件过滤显示的课程
 			filteCourse() {
 				console.log(this.coursenamesearch)
+				if (this.coursenamesearch == '') {
+					this.courseList = this.allList
+				} else {
+					this.courseList = this.allList.filter(v => v.kc.indexOf(this.coursenamesearch) >= 0)
+				}
 			}
 		},
 	};
