@@ -135,8 +135,8 @@
 				</view>
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						style="height:80rpx;">
-						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>解散班级
+						style="height:80rpx;" @click="navigate('classmgr',true)">
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>管理班级
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
 						style="height:80rpx;" @click="navigate('detailinf',true)">

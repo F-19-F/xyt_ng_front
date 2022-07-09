@@ -125,6 +125,15 @@ module.exports = (vm) => {
 			}
 		})
 	}
+	api.getEduclassbycourse = (course, xn, xq) => {
+		return http.get('educlass/', {
+			params: {
+				course,
+				xn,
+				xq
+			}
+		})
+	}
 	api.pubnewCourse = (name, credit) => {
 		return api.getCsrfToken().then(res => {
 			let csrf_token = res.csrftoken;
@@ -153,6 +162,17 @@ module.exports = (vm) => {
 			return http.post("educlass/", {
 				...educlass
 			}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			})
+		})
+	}
+	api.delEduclass = id => {
+		return api.getCsrfToken().then(res => {
+			let csrf_token = res.csrftoken;
+			// console.log(csrf_token)
+			return http.delete(`educlass/${id}/`, {}, {
 				header: {
 					'X-CSRFToken': csrf_token
 				}
