@@ -125,7 +125,7 @@
 				</view>
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						@click="navigate('exam',false)" style="height:80rpx;">
+						@click="navigate('publishcourse',false)" style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/exam.png'></image>发布课程
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"

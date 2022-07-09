@@ -7,8 +7,31 @@
 		</cu-custom>
 		<!-- </u-sticky> -->
 		<!-- <u--text type="info" :text="content" class="main"></u--text> -->
-		<u-parse :content="defaulthtml" class="main" :selectable="true"></u-parse>
-		<u--textarea v-model="answer" placeholder="请输入内容" count></u--textarea>
+		<!-- <u-parse :content="defaulthtml" class="main" :selectable="true"></u-parse> -->
+		<view class="solids-bottom padding-xs flex align-center">
+			<!-- <view class="padding">18</view> -->
+			<view class="flex-sub">
+				<view class="solid-bottom text-xl padding text-center">
+					<text class="text-black text-bold ">{{title}}</text>
+				</view>
+				<view class="padding">
+					<u-parse :content="content" class="main" :selectable="true"></u-parse>
+				</view>
+				<u--textarea v-model="answer" placeholder="请输入你的回答内容" count :disabled="submited"></u--textarea>
+				<view class="text-center">
+					<button :disabled="submited" class="cu-btn bg-orange-1 shadow-blur round" @click="submit()">
+						<view v-if="submited">
+							已经提交
+						</view>
+						<view v-else>提交</view>
+
+					</button>
+				</view>
+
+			</view>
+		</view>
+
+
 	</view>
 
 </template>
@@ -17,9 +40,26 @@
 	export default {
 		data() {
 			return {
-				content: '啦啦啦啦啦',
-				title: '我是标题',
-				answer: ''
+				content: '',
+				title: '',
+				answer: '',
+				id: '',
+				submited: false
+			}
+		},
+		methods: {
+			submit() {
+				this.$u.api.submitAnswer(this.id, this.answer).then(res => {
+					uni.showToast({
+						title: "提交成功"
+					})
+					this.submited = true
+				}).catch(res => {
+					uni.showToast({
+						title: res[0],
+						icon: "error"
+					})
+				})
 			}
 		},
 		computed: {
@@ -32,7 +72,16 @@
 			this.$u.api.getWorkdetail(options.id).then(res => {
 				this.content = res.content
 				this.title = res.title
-
+				this.id = options.id
+			})
+			this.$u.api.getMyansewerbywid(options.id).then(res => {
+				if (res.count > 0) {
+					this.answer = res.results[0].content
+					this.submited = true
+				}
+				// console.log(this.submited + '')
+			}).catch(res => {
+				console.log(res)
 			})
 		}
 	}

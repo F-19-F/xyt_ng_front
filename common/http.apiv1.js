@@ -96,6 +96,29 @@ module.exports = (vm) => {
 	}
 	api.getWorks = () => http.get("work/mywork/")
 	api.getWorkdetail = id => http.get(`work/${id}/`)
+	api.submitAnswer = (id, answer) => {
+		return api.getCsrfToken().then(res => {
+			let csrf_token = res.csrftoken;
+			// console.log(csrf_token)
+			return http.post("answer/", {
+				work: id,
+				content: answer,
+				people: vm.$store.state.userInfo.id
+			}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			})
+		})
+	}
+	api.getMyansewerbywid = id => {
+		return http.get('answer/', {
+			params: {
+				work: id
+			}
+		})
+	}
+	// api.postNew
 	api.getAllScore = () => http.get("score/myscore/")
 	api.getAllExam = () => http.get("exam/myexam/")
 	api.getAllWork = () => http.get("work/")
