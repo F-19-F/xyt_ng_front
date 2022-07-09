@@ -50,13 +50,20 @@ module.exports = (vm) => {
 			'name': userInfo.name,
 			'username': userInfo.num,
 			...userInfo
-		}
-		// console.log(newUserinfo)
-		return http.put(`user/${userInfo.id}/`, {
-			...newUserinfo
-		}).then(res => {
-			// 更新客户端用户信息
-			vm.$store.commit('userLogin', userInfo);
+		};
+		return api.getCsrfToken().then(res => {
+			// console.log(newUserinfo)
+			let csrf_token = res.csrftoken;
+			return http.put(`user/${userInfo.id}/`, {
+				...newUserinfo
+			}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			}).then(res => {
+				// 更新客户端用户信息
+				vm.$store.commit('userLogin', userInfo);
+			})
 		})
 
 	}
@@ -118,7 +125,40 @@ module.exports = (vm) => {
 			}
 		})
 	}
-	// api.postNew
+	api.pubnewCourse = (name, credit) => {
+		return api.getCsrfToken().then(res => {
+			let csrf_token = res.csrftoken;
+			// console.log(csrf_token)
+			return http.post("course/", {
+				name,
+				credit,
+				create_teacher: vm.$store.state.userInfo.id
+			}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			})
+		})
+	}
+	api.getCoursebyme = () => {
+		return http.get('course/getcoursebyme/')
+	}
+	api.getClassroom = () => {
+		return http.get('classroom/')
+	}
+	api.pubnewEduclass = (educlass) => {
+		return api.getCsrfToken().then(res => {
+			let csrf_token = res.csrftoken;
+			// console.log(csrf_token)
+			return http.post("educlass/", {
+				...educlass
+			}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			})
+		})
+	}
 	api.getAllScore = () => http.get("score/myscore/")
 	api.getAllExam = () => http.get("exam/myexam/")
 	api.getAllWork = () => http.get("work/")

@@ -129,14 +129,14 @@
 						<image class='round fun-icon' src='@/static/fun_ico/exam.png'></image>发布课程
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						@click="navigate('grade',false)" style="height:80rpx;">
-						<image class='round fun-icon' src='@/static/fun_ico/grade.png'></image>教学班
+						@click="navigate('educlass',false)" style="height:80rpx;">
+						<image class='round fun-icon' src='@/static/fun_ico/grade.png'></image>新建班级
 					</button>
 				</view>
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
 						style="height:80rpx;">
-						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>教学班
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>解散班级
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
 						style="height:80rpx;" @click="navigate('detailinf',true)">
