@@ -1,5 +1,5 @@
 {
-    "name" : "demo",
+    "name" : "校园通ng",
     "appid" : "__UNI__B4AD4C1",
     "description" : "",
     "versionName" : "1.0.0",
@@ -17,7 +17,9 @@
             "delay" : 0
         },
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+            "Maps" : {}
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -43,7 +45,15 @@
             /* ios打包配置 */
             "ios" : {},
             /* SDK配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "a56b2fc79e726ef10c85dc3b481b9305",
+                        "appkey_android" : "a56b2fc79e726ef10c85dc3b481b9305"
+                    }
+                },
+                "ad" : {}
+            }
         }
     },
     /* 快应用特有相关 */
