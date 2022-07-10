@@ -172,6 +172,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/index/submitScore/submitScore",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"

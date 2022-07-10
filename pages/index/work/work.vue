@@ -17,6 +17,8 @@
 	export default {
 		data() {
 			return {
+				check: false,
+				stuid: '',
 				works: [{
 					title: "如何上天",
 					from: "如何让刘灿上天",
@@ -24,12 +26,22 @@
 				}]
 			}
 		},
-		onLoad() {
+		onLoad(options) {
+			if (options.check) {
+				this.check = true
+				this.stuid = options.sid;
+			}
 			this.loadList()
+
 		},
 		methods: {
 			toDetail(id) {
-				return `/pages/index/work/workdetail/workdetail?id=${id}`
+				if (!this.check) {
+					return `/pages/index/work/workdetail/workdetail?id=${id}`
+				} else {
+					return `/pages/index/work/workdetail/workdetail?id=${id}&check=true`
+				}
+
 			},
 			loadList() {
 				this.$u.api.getWorks().then(res => {

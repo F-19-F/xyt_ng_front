@@ -37,7 +37,7 @@
 					</button>
 					<button v-else class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
 						style="height:80rpx;" @click="navigate('peoplemgr',true)">
-						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>管理选课
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>管理班级
 					</button>
 				</view>
 				<view class="flex-sub margin-xs">
@@ -66,7 +66,7 @@
 				</view>
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						@click="tips('bus')" style="height:80rpx;">
+						@click="wait()" style="height:80rpx;">
 						<image class='round fun-icon' src='@/static/fun_ico/bus.png'></image>校车时刻
 					</button>
 					<!-- cu-btn 将<button>里的图片以及文字合并成一个按钮 -->
@@ -136,7 +136,7 @@
 				<view class="flex-sub margin-xs">
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
 						style="height:80rpx;" @click="navigate('classmgr',true)">
-						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>管理班级
+						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>删除班级
 					</button>
 					<button class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
 						style="height:80rpx;" @click="navigate('detailinf',true)">

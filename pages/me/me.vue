@@ -40,12 +40,12 @@
 		</view>
 		<view class="margin-top-sm">
 			<view class="cu-list menu card-menu sm-border">
-				<view class="cu-item arrow" @click='about'>
+				<!-- <view class="cu-item arrow" @click='about'>
 					<view class="content">
 						<text class="cuIcon-infofill orange-1" style='font-size:20px;'></text>
 						<text class="text-black">关于</text>
 					</view>
-				</view>
+				</view> -->
 				<view class="cu-item arrow" @click='logout'>
 					<view class="content">
 						<text class="cuIcon-settingsfill orange-1" style='font-size:20px;'></text>

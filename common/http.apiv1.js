@@ -118,6 +118,38 @@ module.exports = (vm) => {
 			})
 		})
 	}
+	api.createWork = (educlass, title, content) => {
+		return api.getCsrfToken().then(res => {
+			let csrf_token = res.csrftoken;
+			// console.log(csrf_token)
+			return http.post("work/", {
+				educlass,
+				title,
+				content
+			}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			})
+		})
+	}
+	api.submitScore = (people, educlass, score_normal, score_final, score) => {
+		return api.getCsrfToken().then(res => {
+			let csrf_token = res.csrftoken;
+			// console.log(csrf_token)
+			return http.post("score/", {
+				people,
+				educlass,
+				score,
+				score_normal,
+				score_final
+			}, {
+				header: {
+					'X-CSRFToken': csrf_token
+				}
+			})
+		})
+	}
 	api.getMyansewerbywid = id => {
 		return http.get('answer/', {
 			params: {

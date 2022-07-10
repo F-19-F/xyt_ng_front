@@ -5,7 +5,7 @@
 				返回
 			</view>
 			<view slot="content">
-				选课管理
+				发布作业
 			</view>
 		</cu-custom>
 		<view class="cu-bar bg-white solid-bottom">
@@ -30,40 +30,24 @@
 				</view>
 			</view>
 		</view>
-		<view class="bg-blue-1">
-			<view class="cu-bar bg-white solid-bottom">
-				<view class="action">
-					<text class="cuIcon-title text-orange"></text>选择教学班
-				</view>
-				<view class="action">
-					<view class="action">
-						<button :disabled="!eduClass.length>0" class="cu-btn bg-orange-1 shadow"
-							@click="modalName = 'CsModal'">
-							<text v-if="eduClass.length>0">{{ eduClassname(eduClass[eduClassIndex])}}</text>
-							<text v-else>无教学班</text>
-						</button>
-					</view>
-				</view>
-			</view>
-		</view>
 		<!-- 主体展示页面 -->
-		<view class="animation-slide-bottom margin list-container" v-if="peopleList.length">
+		<view class="animation-slide-bottom margin list-container" v-if="eduList.length">
 			<view class="list-head bg-blue-1">
-				<view class=""> 学生</view>
+				<view class=""> 课程名</view>
 			</view>
-			<view class="list-item text-black" v-for="(item, index) in peopleList" :key="index+'1'"
+			<view class="list-item text-black" v-for="(item, index) in eduList" :key="index+'1'"
 				:class="index % 2 ? 'bg-gray' : 'bg-white'">
 				<view>
 					<view class="list-subitem">
-						<text class="text-bold">{{ item.name }}</text>
+						<text class="text-bold">{{ courseByme[courseIndex].name }}</text>
 						<!-- <text> {{item.teacher}} </text> -->
 					</view>
 					<view class="list-subitem margin-top-sm">
-						<!-- <view class="flex-sub text-left"> 开始：第{{ item.begin_in_day }}节 </view> -->
-						<!-- <view class="flex-sub text-center"> 结束周：{{ item.week_end }} </view> -->
+						<view class="flex-sub text-left"> 开始：第{{ item.begin_in_day }}节 </view>
+						<view class="flex-sub text-center"> 结束周：{{ item.week_end }} </view>
 						<view class="flex-sub text-right">
-							<button class="cu-btn bg-orange-1 round shadow sm" @click="delPeopleinclass(item.id,index)">
-								退出
+							<button class="cu-btn bg-orange-1 round shadow sm" @click="toCreate(item.id)">
+								创建
 							</button>
 						</view>
 					</view>
@@ -75,8 +59,7 @@
 		<cu-empty :type="emptyType">
 			<view slot="text" class="">
 				<view class="margin-bottom-sm">{{ emptyMsg }}</view>
-				<button v-if="emptyType == 'search'" class="cu-btn bg-orange-1 round shadow-blur"
-					@click="confirmClick()">
+				<button v-if="emptyType == 'search'" class="cu-btn bg-orange-1 round shadow-blur" @click="getSelect">
 					查询
 				</button>
 			</view>
@@ -100,26 +83,6 @@
 				</view>
 			</view>
 		</view>
-		<view class="cu-modal bottom-modal" :class="modalName == 'CsModal' ? 'show' : ''">
-			<view class="cu-dialog">
-				<view class="cu-bar bg-white">
-					<view class="action text-blue" @click="modalName = null">单选</view>
-					<view class="action text-green" @click="modalName = null">确定</view>
-				</view>
-				<view class="grid col-3 padding-sm bg-gray">
-					<view v-for="(item, index) in eduClass" class="padding-xs" :key="index">
-						<button class="cu-btn blue block" :class="index == eduClassIndex ? 'bg-blue' : 'line-blue'"
-							@click="
-		        eduClassId = item.id;
-		        eduClassIndex = index;
-				confirmClick();
-		      ">
-							{{ eduClassname(item) }}
-						</button>
-					</view>
-				</view>
-			</view>
-		</view>
 	</view>
 </template>
 
@@ -130,17 +93,14 @@
 			return {
 				xqm: "",
 				xnm: "",
-				peopleList: [],
+				eduList: [],
 				emptyType: "search",
 				emptyMsg: "点击上方筛选，或点击下方按钮直接查询。",
 				coursenamesearch: '',
 				allList: [],
 				courseByme: [],
-				eduClass: [],
 				curCourseId: 0,
 				courseIndex: 0,
-				eduClassIndex: 0,
-				eduClassId: -1,
 				modalName: ''
 			};
 		},
@@ -165,21 +125,11 @@
 				this.xnm = e;
 			},
 			confirmClick: function() {
-				this.getEduclass().then(res => {
-					// console.log("called")
-					this.getPeopleinclass();
-				}).catch(res => {
-					this.emptyType = "error"
-					this.emptyMsg = res[0]
-					this.eduClass = []
-				})
-				// if(eduClass.)
-
+				this.getSelect();
 			},
-			getEduclass: function() {
-				return uni.$u.api.getEduclassbycourse(this.curCourseId, this.xnm, this.xqm).then(res => {
-					this.eduClass = res.results;
-					this.eduClassId = this.eduClass[0].id;
+			getSelect: function() {
+				uni.$u.api.getEduclassbycourse(this.curCourseId, this.xnm, this.xqm).then(res => {
+					this.eduList = res.results
 					// this.allList = res.filter(v => v.selected)
 					if (res.count > 0) {
 						this.emptyType = "success"
@@ -188,34 +138,31 @@
 					} else {
 						this.emptyType = "success"
 						this.emptyMsg = "未查询到信息"
-						this.eduClass = []
+						this.eduList = []
 					}
+
+				}).catch(res => {
+					this.emptyType = "error"
+					this.emptyMsg = res[0]
+					this.eduList = []
 				})
 			},
-			eduClassname(item) {
-				return `第${item.week_begin}-${item.week_end}周-周${item.whichday}-${item.begin_in_day}-${item.end_in_day}节`
+			toCreate(eduClassid) {
+				uni.navigateTo({
+					url: `/pages/index/work/workdetail/workdetail?eduid=${eduClassid}&create=1`
+				})
+				// return 
 			},
-			getPeopleinclass() {
-				console.log(this.eduClassId)
-				if (this.eduClass.length > 0 && this.eduClassId != -1) {
-					console.log(this.eduClassId)
-					this.$u.api.getPeoplebyeduclass(this.eduClassId).then(res => {
-						this.peopleList = res.results;
-						console.log(res)
-					})
-				}
-			},
-
 			// 查看详情分数 todo
-			delPeopleinclass: function(id, index) {
-				this.$u.api.unselectCourse(id).then(res => {
+			unselectCourse: function(jxb_id, index) {
+				this.$u.api.delEduclass(jxb_id).then(res => {
 					uni.showToast({
-						title: "退出成功!"
+						title: "解散成功!"
 					});
-					// let i = this.allList.indexOf(this.peopleList[index]);
+					// let i = this.allList.indexOf(this.eduList[index]);
 					// this.allList.splice(i, 1);
-					// this.peopleList[index].selected = false;
-					this.peopleList.splice(index, 1);
+					// this.eduList[index].selected = false;
+					this.eduList.splice(index, 1);
 
 				}).catch(res => {
 					// uni.showToast({

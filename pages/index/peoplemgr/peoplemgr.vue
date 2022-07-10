@@ -5,7 +5,7 @@
 				返回
 			</view>
 			<view slot="content">
-				选课管理
+				班级管理
 			</view>
 		</cu-custom>
 		<view class="cu-bar bg-white solid-bottom">
@@ -64,6 +64,12 @@
 						<view class="flex-sub text-right">
 							<button class="cu-btn bg-orange-1 round shadow sm" @click="delPeopleinclass(item.id,index)">
 								退出
+							</button>
+							<button class="cu-btn bg-orange-1 round shadow sm" @click="tosubmit(item.student)">
+								提交成绩
+							</button>
+							<button class="cu-btn bg-orange-1 round shadow sm" @click="towork(item.id)">
+								查看作业
 							</button>
 						</view>
 					</view>
@@ -205,7 +211,6 @@
 					})
 				}
 			},
-
 			// 查看详情分数 todo
 			delPeopleinclass: function(id, index) {
 				this.$u.api.unselectCourse(id).then(res => {
@@ -225,6 +230,18 @@
 					console.log(res)
 				})
 			},
+			tosubmit(studentid) {
+				console.log("sid:" + studentid)
+				uni.navigateTo({
+					url: `/pages/index/submitScore/submitScore?studentid=${studentid}&educlassid=${this.eduClassId}`
+				})
+			},
+			towork(studentid) {
+				console.log("sid:" + studentid)
+				uni.navigateTo({
+					url: `/pages/index/work/work?sid=${studentid}&check=true`
+				})
+			}
 		},
 	};
 </script>
