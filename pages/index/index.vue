@@ -28,7 +28,7 @@
 					</button>
 					<button v-else
 						class="cu-btn bg-blueLight blue-1 flex justify-between border12 margin-bottom-sm shadow"
-						style="height:80rpx;">
+						style="height:80rpx;" @click="navigate('publishWork',true)">
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>发布作业
 					</button>
 					<button v-if="!isTeacher" class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
@@ -36,7 +36,7 @@
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>选课
 					</button>
 					<button v-else class="cu-btn bg-blueLight blue-1 flex justify-between border12 shadow"
-						style="height:80rpx;">
+						style="height:80rpx;" @click="navigate('peoplemgr',true)">
 						<image class="round  fun-icon" src="@/static/fun_ico/found.png"></image>管理选课
 					</button>
 				</view>

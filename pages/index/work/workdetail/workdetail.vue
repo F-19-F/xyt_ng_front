@@ -44,7 +44,8 @@
 				title: '',
 				answer: '',
 				id: '',
-				submited: false
+				submited: false,
+				create: false
 			}
 		},
 		methods: {
@@ -69,6 +70,10 @@
 		},
 		onLoad(options) {
 			// console.log(options)
+			if (options.create) {
+				this.create = true
+			}
+
 			this.$u.api.getWorkdetail(options.id).then(res => {
 				this.content = res.content
 				this.title = res.title

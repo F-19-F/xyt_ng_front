@@ -154,6 +154,24 @@
             }
             
         }
+        ,{
+            "path" : "pages/index/peoplemgr/peoplemgr",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/publishWork/publishWork",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"

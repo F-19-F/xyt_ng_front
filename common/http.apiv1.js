@@ -134,6 +134,14 @@ module.exports = (vm) => {
 			}
 		})
 	}
+	api.getPeoplebyeduclass = (educlass) => {
+		return http.get('peopleclass/', {
+			params: {
+				educlass
+			}
+		})
+	}
+
 	api.pubnewCourse = (name, credit) => {
 		return api.getCsrfToken().then(res => {
 			let csrf_token = res.csrftoken;
